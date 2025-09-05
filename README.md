@@ -3,12 +3,8 @@
 Bu proje, React ve TypeScript kullanarak geliştirilmiş, basit bir web uygulamasıdır. `jsonplaceholder.typicode.com` adresinden alınan sahte verilerle kullanıcı ve gönderi listelerini yönetmek için temel bir CRUD (Create, Read, Update, Delete) arayüzü sunar.
 
 ### Canlı Adres (Canlı Demo)
+https://react-data-management-app-2vlg.vercel.app
 
-Eğer projenizi Netlify veya Vercel gibi ücretsiz bir platforma dağıttıysanız, buraya erişilebilir linki ekleyebilirsiniz.
-
-- **Proje Canlı Adresi:** [Canlı projenizin linki buraya gelecek]
-
----
 
 ### Kullanılan Teknolojiler
 
