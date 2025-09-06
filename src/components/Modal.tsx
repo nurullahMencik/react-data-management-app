@@ -1,7 +1,7 @@
 import React from "react";
 import type { ReactNode } from "react";
 
-import "../styles/Modal.css";
+import "../styles/Modal.css"; // CSS dosyasını buraya aktarıyoruz
 
 interface ModalProps {
   isOpen: boolean;

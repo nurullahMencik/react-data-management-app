@@ -3,7 +3,7 @@ import type { Post } from "../types/post";
 import type { User } from "../types/user";
 import Modal from "./Modal";
 
-import "../styles/List.css";
+import "../styles/List.css"; // CSS dosyasını buraya aktarıyoruz
 
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -116,114 +116,118 @@ const PostList = () => {
   };
 
   if (loading) {
-    return <p>Gönderiler yükleniyor...</p>;
+    return <p className="loading-message">Gönderiler yükleniyor...</p>;
   }
 
   if (error) {
-    return <p>Hata: {error}</p>;
+    return <p className="error-message">Hata: {error}</p>;
   }
 
   return (
     <div className="list-container">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1.5em",
-        }}
-      >
+      <div className="list-header">
         <h1>Gönderi Listesi</h1>
         <button onClick={() => openModal()} className="add-button">
           Yeni Gönderi Ekle
         </button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Kullanıcı ID</th>
-            <th>ID</th>
-            <th>Başlık</th>
-            <th>İşlemler</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts.map((post) => (
-            <tr key={post.id}>
-              <td>
-                <a
-                  href="#"
-                  onClick={() => openUserModal(post.userId)}
-                  className="table-link"
-                >
-                  {post.userId}
-                </a>
-              </td>
-              <td>{post.id}</td>
-              <td>{post.title}</td>
-              <td>
-                <button onClick={() => openModal(post)} className="edit-button">
-                  Düzenle
-                </button>
-                <button
-                  onClick={() => handleDelete(post.id)}
-                  className="delete-button"
-                >
-                  Sil
-                </button>
-              </td>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Kullanıcı ID</th>
+              <th>ID</th>
+              <th>Başlık</th>
+              <th>İşlemler</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {posts.map((post) => (
+              <tr key={post.id}>
+                <td>
+                  <a
+                    href="#"
+                    onClick={() => openUserModal(post.userId)}
+                    className="table-link"
+                  >
+                    {post.userId}
+                  </a>
+                </td>
+                <td>{post.id}</td>
+                <td>{post.title}</td>
+                <td>
+                  <button onClick={() => openModal(post)} className="edit-button">
+                    Düzenle
+                  </button>
+                  <button
+                    onClick={() => handleDelete(post.id)}
+                    className="delete-button"
+                  >
+                    Sil
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>{editingPost ? "Gönderiyi Düzenle" : "Yeni Gönderi Ekle"}</h2>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "10px" }}>
-            <label>Kullanıcı ID:</label>
-            <input
-              type="number"
-              name="userId"
-              value={formInput.userId}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: "10px" }}>
-            <label>Başlık:</label>
-            <input
-              type="text"
-              name="title"
-              value={formInput.title}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: "10px" }}>
-            <label>İçerik:</label>
-            <textarea
-              name="body"
-              value={formInput.body}
-              onChange={handleInputChange}
-              required
-              rows={4}
-            />
-          </div>
-          <button type="submit">{editingPost ? "Kaydet" : "Ekle"}</button>
-          <button
-            type="button"
-            onClick={closeModal}
-            style={{ marginLeft: "10px" }}
-          >
-            İptal
-          </button>
-        </form>
+        <div className="form-modal-content">
+          <h2>{editingPost ? "Gönderiyi Düzenle" : "Yeni Gönderi Ekle"}</h2>
+          <form onSubmit={handleSubmit} className="modal-form">
+            <div className="form-group">
+              <label htmlFor="userId">Kullanıcı ID:</label>
+              <input
+                type="number"
+                id="userId"
+                name="userId"
+                value={formInput.userId}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="title">Başlık:</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formInput.title}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="body">İçerik:</label>
+              <textarea
+                id="body"
+                name="body"
+                value={formInput.body}
+                onChange={handleInputChange}
+                required
+                rows={4}
+              />
+            </div>
+            <div className="form-actions">
+              <button type="submit" className="submit-button">
+                {editingPost ? "Kaydet" : "Ekle"}
+              </button>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="cancel-button"
+              >
+                İptal
+              </button>
+            </div>
+          </form>
+        </div>
       </Modal>
 
       <Modal isOpen={!!selectedUser} onClose={closeUserModal}>
         {selectedUser && (
-          <div>
+          <div className="user-modal-content">
             <h2>Kullanıcı Bilgileri</h2>
             <p>
               <strong>İsim:</strong> {selectedUser.name}
@@ -233,6 +237,12 @@ const PostList = () => {
             </p>
             <p>
               <strong>E-posta:</strong> {selectedUser.email}
+            </p>
+            <p>
+              <strong>Adres:</strong> {selectedUser.address.street}, {selectedUser.address.city}
+            </p>
+            <p>
+              <strong>Şirket:</strong> {selectedUser.company.name}
             </p>
           </div>
         )}

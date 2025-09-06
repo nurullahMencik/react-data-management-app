@@ -1,43 +1,64 @@
+/* Modal Arka Planı (Overlay) */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6); /* Yarı saydam siyah arka plan */
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; /* Diğer içeriklerin üzerinde olmasını sağlar */
+  animation: fadeIn 0.3s ease-out;
 }
 
+/* Modal İçeriği */
 .modal-content {
-  background-color: white;
-  padding: 2em;
-  border-radius: 8px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
   max-width: 500px;
-  width: 100%;
+  width: 90%;
   position: relative;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
 }
 
+/* Kapatma Butonu */
 .modal-close-button {
   position: absolute;
-  top: 1em;
-  right: 1em;
+  top: 10px;
+  right: 15px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
+  color: #888;
+  transition: color 0.2s ease;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.modal-close-button:hover {
+  color: #333;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

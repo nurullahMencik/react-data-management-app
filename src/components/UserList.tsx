@@ -100,104 +100,108 @@ const UserList = () => {
   };
 
   if (loading) {
-    return <p>Kullanıcılar yükleniyor...</p>;
+    return <p className="loading-message">Kullanıcılar yükleniyor...</p>;
   }
 
   if (error) {
-    return <p>Hata: {error}</p>;
+    return <p className="error-message">Hata: {error}</p>;
   }
 
   return (
     <div className="list-container">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1.5em",
-        }}
-      >
+      <div className="list-header">
         <h1>Kullanıcı Listesi</h1>
         <button onClick={() => openModal()} className="add-button">
           Yeni Kullanıcı Ekle
         </button>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>İsim</th>
-            <th>Kullanıcı Adı</th>
-            <th>E-posta</th>
-            <th>İşlemler</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>
-                <button onClick={() => openModal(user)} className="edit-button">
-                  Düzenle
-                </button>
-                <button
-                  onClick={() => handleDelete(user.id)}
-                  className="delete-button"
-                >
-                  Sil
-                </button>
-              </td>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>İsim</th>
+              <th>Kullanıcı Adı</th>
+              <th>E-posta</th>
+              <th>İşlemler</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button onClick={() => openModal(user)} className="edit-button">
+                    Düzenle
+                  </button>
+                  <button
+                    onClick={() => handleDelete(user.id)}
+                    className="delete-button"
+                  >
+                    Sil
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>{editingUser ? "Kullanıcıyı Düzenle" : "Yeni Kullanıcı Ekle"}</h2>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "10px" }}>
-            <label>İsim:</label>
-            <input
-              type="text"
-              name="name"
-              value={formInput.name}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: "10px" }}>
-            <label>Kullanıcı Adı:</label>
-            <input
-              type="text"
-              name="username"
-              value={formInput.username}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: "10px" }}>
-            <label>E-posta:</label>
-            <input
-              type="email"
-              name="email"
-              value={formInput.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <button type="submit">{editingUser ? "Kaydet" : "Ekle"}</button>
-          <button
-            type="button"
-            onClick={closeModal}
-            style={{ marginLeft: "10px" }}
-          >
-            İptal
-          </button>
-        </form>
+        <div className="form-modal-content">
+          <h2>{editingUser ? "Kullanıcıyı Düzenle" : "Yeni Kullanıcı Ekle"}</h2>
+          <form onSubmit={handleSubmit} className="modal-form">
+            <div className="form-group">
+              <label htmlFor="name">İsim:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formInput.name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="username">Kullanıcı Adı:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formInput.username}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">E-posta:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formInput.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-actions">
+              <button type="submit" className="submit-button">
+                {editingUser ? "Kaydet" : "Ekle"}
+              </button>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="cancel-button"
+              >
+                İptal
+              </button>
+            </div>
+          </form>
+        </div>
       </Modal>
     </div>
   );

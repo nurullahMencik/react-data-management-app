@@ -8,7 +8,6 @@ import UserList from './components/UserList.tsx';
 import PostList from './components/PostList.tsx';
 
 
-import './styles/index.css';
 
 const router = createBrowserRouter([
   {
